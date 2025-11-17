@@ -1,0 +1,6 @@
+# config/tools.yml
+tools:
+  current_time:
+    enabled: true
+  dummy_tool:
+    enabled: false

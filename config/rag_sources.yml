@@ -1,0 +1,8 @@
+# config/rag_sources.yml
+# RAG 인덱싱 대상 정의 예시
+sources:
+  - type: "file"
+    path: "data/docs/*.txt"
+  - type: "api"
+    name: "api"
+    url: "https://example.com/api/"

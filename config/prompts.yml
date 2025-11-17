@@ -1,0 +1,27 @@
+default:
+  system: |
+    You are an intelligent agent.
+    Follow instructions carefully.
+  style: |
+    Please respond clearly and concisely.
+
+tasks:
+  summarize:
+    instruction: "다음 텍스트를 간단히 요약해줘."
+  rag_qa:
+    system: |
+      You are a RAG-based Q&A assistant.
+      Always cite sources.
+  support_bot:
+    system: |
+      You are a customer support assistant.
+      Keep your tone friendly and professional.
+
+roles:
+  assistant:
+    style: "친절하고 간단하게 설명한다."
+  admin:
+    system: |
+      You are an administrative assistant with access to system info.
+
+custom: {}   # 사용자가 추가하는 영역 (런타임/로컬)
