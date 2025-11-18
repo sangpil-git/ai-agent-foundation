@@ -78,25 +78,26 @@ llm = ChatOpenAI(
 
 ## 7. ▶️ FastAPI 서버 실행
 
-CLI 테스트
+CLI 테스트 예시
 ```powershell
-python -m apps.cli.run_agent echo_chain "테스트"
+python -m app.core.llm.run_agent echo_chain "테스트"
 ```
 
 서버 실행
 루트에서:
 ```bash
-uvicorn apps.api.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 또는 pyproject.toml 에 script가 있다면:
 ```bash
-uvicorn apps.api.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 브라우저에서 확인  
 ```text
 http://localhost:8000/docs  (Swagger UI)  
-http://localhost:8000/health  (Health)  
+http://localhost:8000/api/v1/health  (Health)  
+http://localhost:8000/api/v1/.....
 ```
 
 ---

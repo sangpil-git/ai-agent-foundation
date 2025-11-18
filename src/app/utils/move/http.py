@@ -1,6 +1,6 @@
 # app/utils/http.py
 import httpx
-from app.utils.exceptions import ExternalAPIError
+from src.app.utils.move.exceptions import ExternalAPIError
 
 
 async def http_get(url: str, params=None, headers=None, timeout=10):
