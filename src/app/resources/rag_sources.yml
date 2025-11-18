@@ -1,4 +1,4 @@
-# config/rag_sources.yml
+# src/app/resources/rag_sources.yml
 # RAG 인덱싱 대상 정의 예시
 sources:
   - type: "file"

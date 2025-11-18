@@ -5,10 +5,7 @@ from pathlib import Path
 from logging.handlers import RotatingFileHandler
 
 import structlog
-from app.core.config import settings
-
-LOG_DIR = Path(__file__).resolve().parents[3] / "logs"
-LOG_DIR.mkdir(exist_ok=True)
+from app.core.config import settings, LOG_DIR
 
 LOG_FILE = LOG_DIR / "app.json"
 

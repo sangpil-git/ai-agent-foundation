@@ -1,4 +1,4 @@
-# app/core/tool_registry.py
+# app/tools/tool_registry.py
 """
 tools.yml 에 정의된 툴들을 코드 상의 함수/객체와 매핑하는 레지스트리.
 """

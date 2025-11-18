@@ -1,4 +1,4 @@
-# config/schema/prompt_schema.py
+# src/app/resources/schema/prompt_schema.py
 from pydantic import BaseModel
 from typing import Dict
 

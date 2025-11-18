@@ -4,7 +4,7 @@ VectorStore + Embeddings 를 이용한 Retriever 헬퍼.
 """
 from typing import List
 
-from app.rag.embeddings import embed_texts
+from app.rag.embeddings.embeddings import embed_texts
 from app.rag.vector_store import global_vector_store
 
 

@@ -1,5 +1,5 @@
 # tests/test_graphs.py
-from app.graphs.base.graph_registry import get_graph
+from src.app.graphs.base.graph_registry import get_graph
 
 
 def test_support_bot_graph_basic():

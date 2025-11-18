@@ -5,7 +5,18 @@ from pydantic import Field
 from typing import Literal, Optional
 import os
 
-BASE_DIR = Path(__file__).resolve().parents[3]
+def get_project_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in [current] + list(current.parents):
+        if (parent / "pyproject.toml").exists():
+            return parent
+    raise RuntimeError("Project root not found.")
+
+BASE_DIR = get_project_root()
+
+# 예: RAG 리소스, config 파일 등
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(

@@ -5,7 +5,7 @@ from typing import Any, Dict, Optional
 
 from app.chains.base.chain_registry import get_chain, list_chains
 from app.core.logging import logger
-from src.app.utils.move.response_builder import error_response, success_response
+from app.utils.move.response_builder import error_response, success_response
 
 router = APIRouter(prefix="/chain", tags=["chain"])
 

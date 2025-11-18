@@ -1,4 +1,4 @@
-# config/schema/model_schema.py
+# src/app/resources/schema/model_schema.py
 from pydantic import BaseModel
 from typing import Dict, Optional
 

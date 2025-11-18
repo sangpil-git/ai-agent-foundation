@@ -1,9 +1,9 @@
-# scripts/test_chain.py
+# tests/test_chain.py
 """
 체인 로컬 테스트용 스크립트.
-python -m scripts.test_chain 형태로 실행 가능.
+python -m tests.test_chain 형태로 실행 가능.
 """
-from app.chains.base.chain_registry import get_chain
+from src.app.chains.base.chain_registry import get_chain
 
 
 def main():

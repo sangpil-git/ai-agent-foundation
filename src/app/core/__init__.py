@@ -5,7 +5,7 @@
 
 from .config import settings, load_yaml
 from .logging import setup_logging, get_logger
-from .llm import create_llm, model_registry, prompt_registry, tool_registry
+from .llm import create_llm, model_registry, prompt_registry
 from .tracing import init_langsmith
 
 __all__ = [
@@ -16,6 +16,5 @@ __all__ = [
     "create_llm",
     "model_registry",
     "prompt_registry",
-    "tool_registry",
     "init_langsmith",
 ]

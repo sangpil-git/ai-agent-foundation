@@ -1,7 +1,7 @@
 # app/core/model_registry.py
 from typing import Dict
 
-from config.schema.model_schema import ModelsConfig, ModelConfig
+from app.resources.schema.model_schema import ModelsConfig, ModelConfig
 from app.core.config.loader import load_yaml
 
 

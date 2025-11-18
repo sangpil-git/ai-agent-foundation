@@ -1,3 +1,4 @@
+#src/app/resources/prompts.yml
 default:
   system: |
     You are an intelligent agent.

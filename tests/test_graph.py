@@ -1,8 +1,8 @@
-# scripts/test_graph.py
+# tests/test_graph.py
 """
 개별 그래프 로컬 테스트용 스크립트.
 """
-from app.graphs.base.graph_registry import get_graph
+from src.app.graphs.base.graph_registry import get_graph
 
 
 def main():

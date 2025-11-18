@@ -1,4 +1,4 @@
-# config/schema/tool_schema.py
+# src/app/resources/schema/tool_schema.py
 from pydantic import BaseModel
 from typing import Dict
 

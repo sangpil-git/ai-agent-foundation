@@ -6,7 +6,7 @@ LangChain tool 과 registry 연동용 helper.
 from typing import Any, Callable, Optional
 from langchain_core.tools import tool as lc_tool
 
-from app.core.llm import register_tool
+from app.tools.tool_registry import register_tool
 
 
 def registered_tool(name: Optional[str] = None, **lc_kwargs):

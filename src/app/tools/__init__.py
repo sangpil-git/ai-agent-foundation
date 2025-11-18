@@ -9,7 +9,7 @@ import pkgutil
 import importlib
 from pathlib import Path
 
-from app.core.llm import tool_registry
+from .tool_registry import tool_registry
 from .base import registered_tool
 
 # Auto-discover and import all modules in this folder

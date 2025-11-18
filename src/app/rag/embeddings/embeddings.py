@@ -1,4 +1,4 @@
-# app/rag/embeddings.py
+# app/rag/embeddings/embeddings.py
 """
 임베딩 생성 헬퍼.
 향후 OpenAI, HuggingFace 임베딩 모델 교체를 여기서 처리.

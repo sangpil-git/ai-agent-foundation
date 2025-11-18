@@ -1,7 +1,6 @@
 # src/app/rag/embeddings/factory.py
 from app.rag.embeddings.base import BaseEmbedding
 from app.rag.embeddings.openai_embedding import OpenAIEmbedding
-from app.rag.embeddings.upstage_embedding import UpstageEmbedding
 from app.core.config.settings import settings
 
 
@@ -10,9 +9,6 @@ def create_embedding() -> BaseEmbedding:
 
     if provider == "openai":
         return OpenAIEmbedding()
-
-    if provider == "upstage":
-        return UpstageEmbedding()
 
     # 필요 시 dummy/local 등 추가
     # if provider == "dummy": ...

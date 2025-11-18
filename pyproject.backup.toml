@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "agent-foundation"
+version = "0.1.0"
+description = "LangChain/LangGraph 기반 에이전트 공용 프레임워크"
+readme = "README.md"
+authors = ["Your Name <you@example.com>"]  # 필요시 수정
+
+packages = [
+    { include = "agent_foundation" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+
+chromadb = ">=1.3.4"
+fastapi = ">=0.121.2"
+httpx = ">=0.28.1"
+langchain = ">=1.0.5"
+"langchain-community" = ">=0.4.1"
+"langchain-openai" = ">=1.0.2"
+langgraph = ">=1.0.3"
+openai = ">=2.8.0"
+pydantic = ">=2.12.4"
+"pydantic-settings" = ">=2.12.0"
+python-dotenv = ">=1.2.1"
+structlog = ">=25.5.0"
+uvicorn = { version = ">=0.38.0", extras = ["standard"] }
+redis = "*"
+sqlalchemy = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"          # 원하면 정확 버전으로 바꿔도 됨
+pytest-asyncio = "^0.24.0"
+
+[tool.poetry.scripts]
+agent-foundation = "agent_foundation:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

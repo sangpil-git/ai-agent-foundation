@@ -11,7 +11,7 @@ from __future__ import annotations
 from typing import Any, Dict, Optional
 
 from app.chains.base.base_chain import BaseChain
-from app.chains.base.chain_registry import register_chain  # 현재 구조에 맞춰 유지
+from app.chains.base.chain_registry import register_chain
 from app.rag.rag_pipeline import simple_rag_answer
 
 

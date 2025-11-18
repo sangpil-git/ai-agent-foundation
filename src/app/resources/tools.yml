@@ -1,4 +1,4 @@
-# config/tools.yml
+# src/app/resources/tools.yml
 tools:
   current_time:
     enabled: true

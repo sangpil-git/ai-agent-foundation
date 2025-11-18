@@ -1,3 +1,4 @@
+#src/app/resources/models.yml
 models:
   gpt-4.1-mini:
     provider: openai
