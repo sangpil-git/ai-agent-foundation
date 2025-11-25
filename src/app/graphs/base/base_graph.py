@@ -1,35 +1,100 @@
 # app/graphs/base/base_graph.py
-"""
-Graph 공통 베이스 클래스.
-
-- LangGraph, LangChain Runnable 등 어떤 그래프/워크플로우든
-  공통 인터페이스(BaseGraph)를 통해 감싸서 사용.
-"""
+from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict
+from typing import Any, Dict, Optional
+import logging
+
+from langgraph.types import RunnableConfig
+from app.core.exceptions import AppError
+
+
+GraphInput = Dict[str, Any]
+GraphOutput = Dict[str, Any]
 
 
 class BaseGraph(ABC):
     """
-    모든 Graph 구현체는 이 클래스를 상속해서 구현.
+    모든 Graph의 공통 베이스 클래스.
+    Chain과 구조/단계/메서드명을 동일하게 맞춘 버전.
     """
 
-    def preprocess(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        """그래프 실행 전 데이터 전처리"""
-        return input_data
+    def __init__(self, name: Optional[str] = None) -> None:
+        self._name = name or self.__class__.__name__
+        self.logger = logging.getLogger(self._name)
+        self._compiled = None
 
+    @property
+    def name(self) -> str:
+        return self._name
+
+    # --------------------------
+    # 그래프 빌드 (필수)
+    # --------------------------
     @abstractmethod
-    def run(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        """그래프 핵심 실행"""
+    def build(self):
         raise NotImplementedError
 
-    def postprocess(self, result: Dict[str, Any]) -> Dict[str, Any]:
-        """그래프 실행 후 후처리"""
+    @property
+    def compiled(self):
+        if self._compiled is None:
+            self._compiled = self.build()
+        return self._compiled
+
+    # --------------------------
+    # 1) 입력 검증
+    # --------------------------
+    def validate_input(self, input_data: GraphInput) -> None:
+        return
+
+    # --------------------------
+    # 2) 전처리
+    # --------------------------
+    def preprocess(self, input_data: GraphInput) -> GraphInput:
+        return input_data
+
+    # --------------------------
+    # 3) 핵심 실행 (Chain과 동일한 이름 run 사용)
+    # --------------------------
+    def run(self, data: GraphInput) -> GraphOutput:
+        """
+        Chain의 run()과 동일한 이름.
+        내부에서는 Graph의 compiled.invoke(data)를 실행.
+        """
+        return self.compiled.invoke(data)
+
+    # --------------------------
+    # 4) 후처리
+    # --------------------------
+    def postprocess(self, result: GraphOutput) -> GraphOutput:
         return result
 
-    def invoke(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        data = self.preprocess(input_data)
-        result = self.run(data)
-        output = self.postprocess(result)
-        return output
+    # --------------------------
+    # 통합 entry-point
+    # --------------------------
+    def invoke(
+        self,
+        input_data: GraphInput,
+        config: Optional[RunnableConfig] = None,
+    ) -> GraphOutput:
+        try:
+            self.validate_input(state)
+            processed = self.preprocess(state)
+            result = self.run(processed)
+            return self.postprocess(result)
+
+        except AppError:
+            raise
+
+        except Exception as e:
+            raise AppError(str(e), code="graph_unexpected_error") from e
+
+    async def ainvoke(
+        self,
+        input_data: GraphInput,
+        config: Optional[RunnableConfig] = None,
+    ) -> GraphOutput:
+        return self.invoke(input_data, config=config)
+
+    def __call__(self, input_data: GraphInput):
+        return self.invoke(input_data)

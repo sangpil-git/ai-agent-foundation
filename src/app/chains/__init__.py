@@ -1,32 +1,29 @@
 # app/chains/__init__.py
 """
-chains 패키지 초기화.
+Chains package.
 
-- base.chain_registry 의 get_chain / register_chain 을 export
-- builtin 하위 체인들을 자동 import → @register_chain 자동 등록
+- builtin 체인들을 자동 import 해서
+  @register_chain 데코레이터가 실행되도록 한다.
 """
 
 from __future__ import annotations
 
-import importlib
 import pkgutil
+import importlib
 from pathlib import Path
 
-from app.chains.base.chain_registry import get_chain, register_chain
 
-__all__ = ["get_chain", "register_chain"]
-
-
-def _auto_import_builtin_chains() -> None:
-    """app/chains/builtin 폴더의 모든 모듈 자동 import."""
-    package_dir = Path(__file__).resolve().parent / "builtin"
-    package_name = f"{__name__}.builtin"
-
-    if not package_dir.exists():
-        return
-
-    for module in pkgutil.iter_modules([str(package_dir)]):
-        importlib.import_module(f"{package_name}.{module.name}")
+def _auto_import_modules(package_path: Path, base_package: str) -> None:
+    for module in pkgutil.iter_modules([str(package_path)]):
+        name = module.name
+        if name.startswith("_"):
+            continue
+        importlib.import_module(f"{base_package}.{name}")
 
 
-_auto_import_builtin_chains()
+_chains_dir = Path(__file__).resolve().parent
+_builtin_dir = _chains_dir / "builtin"
+
+if _builtin_dir.exists():
+    _auto_import_modules(_builtin_dir, "app.chains.builtin")
+

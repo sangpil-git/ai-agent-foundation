@@ -1,14 +1,14 @@
 # app/core/llm/prompt_registry.py
 from typing import Dict, Optional
 from app.core.config.loader import load_yaml
-from app.core.logging import get_logger
+from app.core.logging.logger import get_logger
 
 logger = get_logger("prompt_registry")
 
 
 class PromptRegistry:
     def __init__(self):
-        self._prompts = load_yaml("config/prompts.yml")
+        self._prompts = load_yaml("prompts")
 
         self.default = self._prompts.get("default", {})
         self.tasks = self._prompts.get("tasks", {})

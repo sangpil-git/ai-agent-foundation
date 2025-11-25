@@ -7,18 +7,18 @@ from pathlib import Path
 from typing import Any, Dict
 import yaml
 
-from app.core.config.settings import BASE_DIR
-
-
-CONFIG_DIR = BASE_DIR / "config"
-
+from app.core.config.settings import RESOURCE_DIR
 
 def load_yaml(name: str) -> Dict[str, Any]:
     """
-    config/{name}.yml 파일 로딩.
+    resource/{name}.yml 파일 로딩.
     """
-    path = CONFIG_DIR / f"{name}.yml"
+    path = RESOURCE_DIR / f"{name}.yml"
+
+    print("Loading YAML file:", path)
+
     if not path.exists():
         return {}
+
     with path.open("r", encoding="utf-8") as f:
         return yaml.safe_load(f) or {}

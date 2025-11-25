@@ -3,10 +3,17 @@
 공통 Tool 베이스/타입 정의.
 LangChain tool 과 registry 연동용 helper.
 """
-from typing import Any, Callable, Optional
+
+from __future__ import annotations
+
+from typing import Any, Callable, Optional, TypeVar, ParamSpec
+
 from langchain_core.tools import tool as lc_tool
 
 from app.tools.tool_registry import register_tool
+
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def registered_tool(name: Optional[str] = None, **lc_kwargs):
@@ -19,12 +26,17 @@ def registered_tool(name: Optional[str] = None, **lc_kwargs):
         ...
     """
 
-    def decorator(func: Callable[..., Any]):
+    def decorator(func: Callable[P, R]) -> Callable[..., Any]:
         tool_name = name or func.__name__
-        # langchain tool wrapping
-        wrapped = lc_tool(**lc_kwargs)(func)
-        # registry 에도 등록
+
+        # LangChain tool wrapping
+        # langchain_core.tools.tool 은 name= 키워드를 받지 않고,
+        # 첫 번째 위치 인자로 이름을 받는 패턴을 사용.
+        wrapped = lc_tool(tool_name, **lc_kwargs)(func)
+
+        # registry 에 LangChain Tool 객체 등록
         register_tool(tool_name)(wrapped)
+
         return wrapped
 
     return decorator

@@ -1,26 +1,26 @@
-# app/chains/echo_chain.py
-"""
-아주 기본적인 Echo 체인 예시.
-"""
-from typing import Any, Dict
+# app/chains/builtin/echo_chain.py
 
-from app.chains.base.base_chain import BaseChain
+from __future__ import annotations
+
+from app.chains.base.base_chain import BaseChain, ChainInput, ChainOutput
 from app.chains.base.chain_registry import register_chain
 
 
 @register_chain("echo")
 class EchoChain(BaseChain):
     """
-    input_data 자체를 그대로 되돌려주거나,
-    일부 필드만 echo 해주는 간단 체인.
+    가장 단순한 Echo 체인.
+    - 입력: { "text": "hello" }
+    - 출력: { "output": "hello" }
     """
 
-    def __init__(self, model_name: str | None = None):
-        # model_name 을 받긴 하지만, 이 체인은 실제 사용하진 않음
-        self.model_name = model_name
+    def __init__(self, model_name: str | None = None) -> None:
+        super().__init__(name="EchoChain")
+        self.model_name = model_name  # 시그니처 통일 목적
 
-    def invoke(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        text = input_data.get("text", "")
-        return {
-            "output": text,
-        }
+    def validate_input(self, input_data: ChainInput) -> None:
+        if "text" not in input_data:
+            raise ValueError("'text' 필드는 반드시 필요합니다.")
+
+    def run(self, data: ChainInput) -> ChainOutput:
+        return {"output": data.get("text", "")}

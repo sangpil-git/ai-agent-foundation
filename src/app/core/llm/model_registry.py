@@ -8,6 +8,8 @@ from app.core.config.loader import load_yaml
 class ModelRegistry:
     def __init__(self) -> None:
         data = load_yaml("models")
+
+        print("Loaded model registry data:", data)
         if not data:
             self._models: Dict[str, ModelConfig] = {}
         else:

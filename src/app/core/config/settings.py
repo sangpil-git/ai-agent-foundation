@@ -14,6 +14,8 @@ def get_project_root() -> Path:
 
 BASE_DIR = get_project_root()
 
+RESOURCE_DIR: Path = BASE_DIR / "src" / "app" / "resources"
+
 # 예: RAG 리소스, config 파일 등
 LOG_DIR = BASE_DIR / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -78,6 +80,9 @@ class Settings(BaseSettings):
     RAG_DOCS_DIR: str = "./data/docs"
     RAG_IMAGES_DIR: str = "./data/images"
     RAG_API_BASE_URL: Optional[str] = None
+
+    # Embedding
+    EMBEDDING_MODEL: str = "text-embedding-3-small" 
 
     # API 서버
     API_HOST: str = "0.0.0.0"

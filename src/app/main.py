@@ -8,6 +8,7 @@ from app.core.config import settings
 from app.core.logging import get_logger, setup_logging
 from app.core.tracing import init_langsmith
 from app.middleware.request_logging import RequestLoggingMiddleware
+from app.middleware.error_handler import setup_exception_handlers
 
 logger = get_logger("app")
 
@@ -43,8 +44,11 @@ def create_app() -> FastAPI:
         redoc_url="/redoc" if settings.ENV != "prod" else None,
     )
 
-    # 자동 Request/Response 로깅 미들웨어 등록
+     # Request/Response 로깅 미들웨어 등록
     app.add_middleware(RequestLoggingMiddleware)
+
+    # 전역 예외 핸들러 등록 (AppError, 기타 Exception)
+    setup_exception_handlers(app)
 
     # API 라우터 등록
     app.include_router(api_router)
