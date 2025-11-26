@@ -56,11 +56,17 @@ class BaseGraph(ABC):
     # --------------------------
     # 3) 핵심 실행 (Chain과 동일한 이름 run 사용)
     # --------------------------
-    def run(self, data: GraphInput) -> GraphOutput:
+    def run(
+        self,
+        data: GraphInput,
+        config: Optional[RunnableConfig] = None,
+    ) -> GraphOutput:
         """
         Chain의 run()과 동일한 이름.
         내부에서는 Graph의 compiled.invoke(data)를 실행.
         """
+        if config is not None:
+            return self.compiled.invoke(data, config=config)
         return self.compiled.invoke(data)
 
     # --------------------------
@@ -78,9 +84,13 @@ class BaseGraph(ABC):
         config: Optional[RunnableConfig] = None,
     ) -> GraphOutput:
         try:
-            self.validate_input(state)
-            processed = self.preprocess(state)
-            result = self.run(processed)
+            # 1) 입력 검증
+            self.validate_input(input_data)
+            # 2) 전처리
+            processed = self.preprocess(input_data)
+            # 3) 그래프 실행
+            result = self.run(processed, config=config)
+            # 4) 후처리
             return self.postprocess(result)
 
         except AppError:
