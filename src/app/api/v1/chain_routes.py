@@ -15,9 +15,9 @@ logger = get_logger("chain")
 
 
 class ChainRequest(BaseModel):
-    chain_name: str                                     # 예: "summarize"
-    model_name: Optional[str] = None                    # 예: "gpt-4.1-mini" (선택)
-    input: Dict[str, Any] = Field(default_factory=dict) # 체인에 넘길 실제 input
+    chain_name: str  # 예: "summarize"
+    model_name: Optional[str] = None  # 예: "gpt-4.1-mini" (선택)
+    input: Dict[str, Any] = Field(default_factory=dict)  # 체인에 넘길 실제 input
     options: dict = Field(default_factory=dict)
 
 
@@ -94,15 +94,14 @@ def run_chain(req: ChainRequest):
         )
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e) ,
+            detail=str(e),
         )
 
     # 4) 응답 래핑 (구조 고정)
     data: Dict[str, Any] = {
         "chain": req.chain_name,
         "model": getattr(chain, "model_name", None),
-        "result": chain_result,   # 결과는 항상 result 안에
+        "result": chain_result,  # 결과는 항상 result 안에
     }
 
     return success_response(data)
-

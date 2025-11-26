@@ -13,12 +13,12 @@ fastapi = { version = ">=0.121.2,<0.123.0" }
 uvicorn = { version = ">=0.38.0,<0.39.0", extras = ["standard"] }
 
 # --- LangChain / LLM / Graph ---
-langchain = "^0.3.0"
-langchain-core = "^0.3.0"
-langchain-community = "^0.3.0"
-langchain-openai = "^0.2.0"
-langchain-text-splitters = "^0.3.0"
-langgraph = "^0.2.0"
+langchain = "^1.1.0"
+langchain-core = "^1.1.0"
+langchain-community = "^0.3.31"
+langchain-openai = "^1.1.0"
+langchain-text-splitters = "^1.0.0"
+langgraph = "^1.0.3"
 
 # --- OpenAI SDK ---
 openai = "^1.0.0"
@@ -41,10 +41,10 @@ python-dotenv = "^1.0.1"
 structlog = "^24.1.0"
 
 # LangSmith 트레이싱 & 평가용
-langsmith = "^0.1.0"
+langsmith = "^0.4.47"
 
-# 토큰 카운팅 / 일부 임베딩 유틸 (OpenAI 토큰 길이 계산 등)
-tiktoken = "^0.7.0"
+# 토큰 카운팅 / 일부 임베딩 유틸
+tiktoken = "^0.12.0"
 
 # FastAPI 성능 및 파일 업로드
 orjson = "^3.10.0"          # FastAPI response_model에 주로 사용

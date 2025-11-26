@@ -7,6 +7,13 @@ models:
     max_tokens: 4096
     api_key_env: OPENAI_API_KEY
 
+  gpt-4.1-nano:
+    provider: openai
+    model: gpt-4.1-nano
+    temperature: 0.2
+    max_tokens: 4096
+    api_key_env: OPENAI_API_KEY
+
   gpt-4o-mini:
     provider: openai
     model: gpt-4o-mini
